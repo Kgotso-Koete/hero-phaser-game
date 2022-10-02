@@ -25,9 +25,8 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ### Technology stack
 
-1. Python 3.10.6
-2. Pygame 2.1.2
-3. Pytmx 3.31
+1. node: 12.14.1
+2. phaser": 3.24.1
 
 ---
 
