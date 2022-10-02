@@ -1,5 +1,9 @@
 import Phaser, { Tilemaps } from "phaser";
 
+const MAX_X_VELOCITY = 250;
+const MAX_Y_VELOCITY = 400;
+const DRAG = 750
+
 class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, xPos, yPos) {
     super(scene, xPos, yPos, "hero-run-sheet", 0);
@@ -11,6 +15,8 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     this.body.setSize(12, 40);
     this.body.setOffset(12, 23);
+    this.body.setMaxVelocity(MAX_X_VELOCITY, MAX_Y_VELOCITY);
+    this.body.setDragX(DRAG)
 
     this.keys = scene.cursorKeys;
   }
@@ -19,15 +25,15 @@ class Hero extends Phaser.GameObjects.Sprite {
     super.preUpdate(time, delta);
 
     if (this.keys.left.isDown) {
-      this.body.setVelocityX(-250);
+      this.body.setAccelerationX(-1000);
       this.setFlipX(true);
-      this.body.offset.x = 8
+      this.body.offset.x = 8;
     } else if (this.keys.right.isDown) {
-      this.body.setVelocityX(250);
+      this.body.setAccelerationX(1000);
       this.setFlipX(false);
-      this.body.offset.x = 12
+      this.body.offset.x = 12;
     } else {
-      this.body.setVelocityX(0);
+      this.body.setAccelerationX(0);
     }
   }
 }
