@@ -2,7 +2,7 @@ import Phaser, { Tilemaps } from "phaser";
 
 const MAX_X_VELOCITY = 250;
 const MAX_Y_VELOCITY = 400;
-const DRAG = 750
+const DRAG = 750;
 
 class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, xPos, yPos) {
@@ -16,7 +16,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.body.setSize(12, 40);
     this.body.setOffset(12, 23);
     this.body.setMaxVelocity(MAX_X_VELOCITY, MAX_Y_VELOCITY);
-    this.body.setDragX(DRAG)
+    this.body.setDragX(DRAG);
 
     this.keys = scene.cursorKeys;
   }
@@ -34,6 +34,16 @@ class Hero extends Phaser.GameObjects.Sprite {
       this.body.offset.x = 12;
     } else {
       this.body.setAccelerationX(0);
+    }
+
+    const didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
+
+    if (didPressJump && this.body.onFloor()) {
+      this.body.setVelocityY(-MAX_Y_VELOCITY);
+    }
+
+    if (this.keys.up.isDown && this.body.velocity.y < 150) {
+      this.body.setVelocityY(-150);
     }
   }
 }
