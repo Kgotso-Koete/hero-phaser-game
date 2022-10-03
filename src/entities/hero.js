@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from "phaser";
+import Phaser from "phaser";
 import StateMachine from "javascript-state-machine";
 
 const MAX_X_VELOCITY = 250;
@@ -13,6 +13,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this);
 
     this.anims.play("hero-running");
+
     this.body.setCollideWorldBounds(true);
     this.body.setSize(12, 40);
     this.body.setOffset(12, 23);
@@ -22,7 +23,63 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.keys = scene.cursorKeys;
     this.input = {};
 
+    this.setUpAnimations();
     this.setUpMovement();
+  }
+
+  setUpAnimations() {
+    this.animState = new StateMachine({
+      init: "idle",
+      transitions: [
+        { name: "idle", from: ["falling", "running", "pivoting"], to: "idle" },
+        { name: "run", from: ["falling", "idle", "pivoting"], to: "running" },
+        { name: "pivot", from: ["falling", "running"], to: "pivoting" },
+        { name: "jump", from: ["idle", "running", "pivoting"], to: "jumping" },
+        { name: "flip", from: ["jumping", "falling"], to: "flipping" },
+        { name: "fall", from: "*", to: "falling" },
+      ],
+      methods: {
+        onEnterState: (lifecycle) => {
+          this.anims.play("hero-" + lifecycle.to);
+          console.log(lifecycle);
+        },
+      },
+    });
+
+    this.animPredicates = {
+      idle: () => {
+        const onGround = this.body.onFloor();
+        const notMovingHorizontally = this.body.velocity.x === 0;
+        return onGround && notMovingHorizontally;
+      },
+      run: () => {
+        const onGround = this.body.onFloor();
+        const direction = this.flipX ? -1 : 1;
+        const movement = Math.sign(this.body.velocity.x);
+        const movementMatchDirection = movement === direction;
+        return onGround && movementMatchDirection;
+      },
+      pivot: () => {
+        const onGround = this.body.onFloor();
+        const direction = this.flipX ? 1 : -1;
+        const movement = Math.sign(this.body.velocity.x);
+        const movementIsNotDirection = movement === direction;
+        return onGround && movementIsNotDirection;
+      },
+      jump: () => {
+        const movingUpwards = this.body.velocity.y < 0;
+        return movingUpwards;
+      },
+      flip: () => {
+        const isInFlipState = this.moveState.is("flipping");
+        const movingUpwards = this.body.velocity.y < 0;
+        return isInFlipState && movingUpwards;
+      },
+      fall: () => {
+        const movingDownwards = this.body.velocity.y > 0;
+        return movingDownwards;
+      },
+    };
   }
 
   setUpMovement() {
@@ -67,6 +124,24 @@ class Hero extends Phaser.GameObjects.Sprite {
     };
   }
 
+  updateMovement() {
+    for (const t of this.moveState.transitions()) {
+      if (t in this.movePredicates && this.movePredicates[t]()) {
+        this.moveState[t]();
+        break;
+      }
+    }
+  }
+
+  updateAnimations() {
+    for (const t of this.animState.transitions()) {
+      if (t in this.animPredicates && this.animPredicates[t]()) {
+        this.animState[t]();
+        break;
+      }
+    }
+  }
+
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
@@ -90,12 +165,8 @@ class Hero extends Phaser.GameObjects.Sprite {
       }
     }
 
-    for (const t of this.moveState.transitions()) {
-      if (t in this.movePredicates && this.movePredicates[t]()) {
-        this.moveState[t]();
-        break;
-      }
-    }
+    this.updateMovement();
+    this.updateAnimations();
   }
 }
 
