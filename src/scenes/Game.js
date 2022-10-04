@@ -28,12 +28,12 @@ class Game extends Phaser.Scene {
       this.map.widthInPixels,
       this.map.heightInPixels
     );
-
-    this.cameras.main.startFollow(this.hero);
   }
 
   addHero() {
     this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
+
+    this.cameras.main.startFollow(this.hero);
 
     this.children.moveTo(
       this.hero,
@@ -115,7 +115,17 @@ class Game extends Phaser.Scene {
     //groundLayer.renderDebug(debugGraphics);
   }
 
-  update(time, delta) {}
+  update(time, delta) {
+    const cameraBottom = this.cameras.main.getWorldPoint(
+      0,
+      this.cameras.main.height
+    ).y;
+
+    if (this.hero.isDead() && this.hero.getBounds().top > cameraBottom) {
+      this.hero.destroy();
+      this.addHero();
+    }
+  }
 
   loadLevelSheets() {
     this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
