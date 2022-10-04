@@ -30,46 +30,46 @@ class Hero extends Phaser.GameObjects.Sprite {
 
   setUpAnimations() {
     this.animState = new StateMachine({
-      init: "standing",
+      init: "idle",
       transitions: [
         {
-          name: "standing",
+          name: "idle",
           from: ["falling", "running", "pivoting"],
-          to: "standing",
+          to: "idle",
         },
         {
           name: "run",
-          from: ["falling", "standing", "pivoting"],
+          from: ["falling", "idle", "pivoting"],
           to: "running",
         },
         { name: "pivot", from: ["falling", "running"], to: "pivoting" },
         {
           name: "jump",
-          from: ["standing", "running", "pivoting"],
+          from: ["idle", "running", "pivoting"],
           to: "jumping",
         },
         { name: "flip", from: ["jumping", "falling"], to: "flipping" },
         {
           name: "fall",
-          from: ["standing", "running", "pivoting", "jumping", "flipping"],
+          from: ["idle", "running", "pivoting", "jumping", "flipping"],
           to: "falling",
         },
         {
           name: "die",
-          from: ["jumping", "flipping", "falling", "standing", "running"],
+          from: ["jumping", "flipping", "falling", "idle", "running"],
           to: "dead",
         },
       ],
       methods: {
         onEnterState: (lifecycle) => {
           this.anims.play("hero-" + lifecycle.to);
-          console.log(lifecycle);
+          // console.log(lifecycle);
         },
       },
     });
 
     this.animPredicates = {
-      standing: () => {
+      idle: () => {
         const onGround = this.body.onFloor();
         const notMovingHorizontally = this.body.velocity.x === 0;
         return onGround && notMovingHorizontally;
@@ -106,19 +106,19 @@ class Hero extends Phaser.GameObjects.Sprite {
 
   setUpMovement() {
     this.moveState = new StateMachine({
-      init: "standing",
+      init: "idle",
       transitions: [
-        { name: "jump", from: "standing", to: "jumping" },
+        { name: "jump", from: "idle", to: "jumping" },
         { name: "flip", from: "jumping", to: "flipping" },
-        { name: "fall", from: "standing", to: "falling" },
+        { name: "fall", from: "idle", to: "falling" },
         {
           name: "touchdown",
           from: ["jumping", "flipping", "falling"],
-          to: "standing",
+          to: "idle",
         },
         {
           name: "die",
-          from: ["jumping", "flipping", "falling", "standing", "running"],
+          from: ["jumping", "flipping", "falling", "idle", "running"],
           to: "dead",
         },
       ],

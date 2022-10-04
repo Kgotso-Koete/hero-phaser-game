@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from "phaser";
+import Phaser from "phaser";
 import Hero from "../entities/hero";
 
 class Game extends Phaser.Scene {
@@ -63,8 +63,9 @@ class Game extends Phaser.Scene {
 
   addMap() {
     this.map = this.make.tilemap({ key: "level-1" });
-
+    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
     const backgroundTiles = this.map.addTilesetImage("clouds", "clouds-sheet");
+
     const backgroundLayer = this.map.createStaticLayer(
       "Background",
       backgroundTiles
@@ -72,7 +73,6 @@ class Game extends Phaser.Scene {
 
     backgroundLayer.setScrollFactor(0.6);
 
-    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
     const groundLayer = this.map.createStaticLayer("Ground", groundTiles);
     groundLayer.setCollision([1, 2, 4], true);
 
@@ -121,14 +121,14 @@ class Game extends Phaser.Scene {
       this.cameras.main.height
     ).y;
 
-    if (this.hero.isDead() && this.hero.getBounds().top > cameraBottom) {
+    if (this.hero.isDead() && this.hero.getBounds().top > cameraBottom + 100) {
       this.hero.destroy();
       this.addHero();
     }
   }
 
   loadLevelSheets() {
-    this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
+    this.load.tilemapTiledJSON("level-1", "/assets/tilemaps/level-1.json");
 
     this.load.spritesheet("world-1-sheet", "/assets/tilesets/world-1.png", {
       frameWidth: 32,
