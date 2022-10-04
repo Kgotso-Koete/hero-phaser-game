@@ -48,11 +48,18 @@ class Game extends Phaser.Scene {
 
   addMap() {
     this.map = this.make.tilemap({ key: "level-1" });
-    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
 
+    const backgroundTiles = this.map.addTilesetImage("clouds", "clouds-sheet");
+    const backgroundLayer = this.map.createStaticLayer(
+      "Background",
+      backgroundTiles
+    );
+
+    backgroundLayer.setScrollFactor(0.6);
+
+    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
     const groundLayer = this.map.createStaticLayer("Ground", groundTiles);
     groundLayer.setCollision([1, 2, 4], true);
-
     this.map.createStaticLayer("Foreground", groundTiles);
 
     this.physics.world.setBounds(
@@ -73,6 +80,7 @@ class Game extends Phaser.Scene {
   loadLevelSheets() {
     this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
     this.load.image("world-1-sheet", "/assets/tilesets/world-1.png");
+    this.load.image("clouds-sheet", "/assets/tilesets/clouds.png");
   }
 
   loadPlayerSpriteSheets() {
