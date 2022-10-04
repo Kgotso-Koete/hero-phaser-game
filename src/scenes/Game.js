@@ -21,13 +21,31 @@ class Game extends Phaser.Scene {
     this.addMap();
 
     this.hero = new Hero(this, 250, 160);
+
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels
+    );
+
+    this.cameras.main.startFollow(this.hero);
   }
 
   addMap() {
     this.map = this.make.tilemap({ key: "level-1" });
     const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
-    
+
     this.map.createStaticLayer("Ground", groundTiles);
+
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels
+    );
+
+    this.physics.world.setBoundsCollision(true, true, false, true);
   }
 
   update(time, delta) {}
