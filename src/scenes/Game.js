@@ -60,7 +60,6 @@ class Game extends Phaser.Scene {
     const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
     const groundLayer = this.map.createStaticLayer("Ground", groundTiles);
     groundLayer.setCollision([1, 2, 4], true);
-    this.map.createStaticLayer("Foreground", groundTiles);
 
     this.physics.world.setBounds(
       0,
@@ -71,11 +70,31 @@ class Game extends Phaser.Scene {
 
     this.physics.world.setBoundsCollision(true, true, false, true);
 
+    this.spikeGroup = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+
     this.map.getObjectLayer("Objects").objects.forEach((object) => {
       if (object.name === "Start") {
         this.spawnPos = { x: object.x, y: object.y };
       }
+
+      if (object["gid"] === 7) {
+        const spike = this.spikeGroup.create(
+          object.x,
+          object.y,
+          "world-1-sheet",
+          object["gid"] - 1
+        );
+
+        spike.setOrigin(0, 1);
+        spike.setSize(object.width - 10, object.height - 10);
+        spike.setOffset(5, 10);
+      }
     });
+
+    this.map.createStaticLayer("Foreground", groundTiles);
 
     //const debugGraphics = this.add.graphics();
     //groundLayer.renderDebug(debugGraphics);
@@ -85,7 +104,14 @@ class Game extends Phaser.Scene {
 
   loadLevelSheets() {
     this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
-    this.load.image("world-1-sheet", "/assets/tilesets/world-1.png");
+
+    this.load.spritesheet("world-1-sheet", "/assets/tilesets/world-1.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+      margin: 1,
+      spacing: 2,
+    });
+
     this.load.image("clouds-sheet", "/assets/tilesets/clouds.png");
   }
 
