@@ -9,6 +9,7 @@ class Game extends Phaser.Scene {
   init(data) {}
 
   preload() {
+    this.loadLevelSheets();
     this.loadPlayerSpriteSheets();
   }
 
@@ -17,14 +18,24 @@ class Game extends Phaser.Scene {
 
     this.loadPlayerAnimations();
 
-    this.hero = new Hero(this, 250, 160);
+    this.addMap();
 
-    const platform = this.add.rectangle(220, 240, 260, 10, "0x4BCB7C");
-    this.physics.add.existing(platform, true);
-    this.physics.add.collider(this.hero, platform);
+    this.hero = new Hero(this, 250, 160);
+  }
+
+  addMap() {
+    this.map = this.make.tilemap({ key: "level-1" });
+    const groundTiles = this.map.addTilesetImage("world-1", "world-1-sheet");
+    
+    this.map.createStaticLayer("Ground", groundTiles);
   }
 
   update(time, delta) {}
+
+  loadLevelSheets() {
+    this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
+    this.load.image("world-1-sheet", "/assets/tilesets/world-1.png");
+  }
 
   loadPlayerSpriteSheets() {
     this.load.spritesheet("hero-idle-sheet", "/assets/player/idle.png", {
@@ -87,7 +98,7 @@ class Game extends Phaser.Scene {
       key: "hero-flipping",
       frames: this.anims.generateFrameNumbers("hero-flip-sheet"),
       frameRate: 30,
-      repeat:0,
+      repeat: 0,
     });
 
     this.anims.create({
