@@ -30,19 +30,35 @@ class Hero extends Phaser.GameObjects.Sprite {
 
   setUpAnimations() {
     this.animState = new StateMachine({
-      init: "idle",
+      init: "standing",
       transitions: [
-        { name: "idle", from: ["falling", "running", "pivoting"], to: "idle" },
-        { name: "run", from: ["falling", "idle", "pivoting"], to: "running" },
+        {
+          name: "standing",
+          from: ["falling", "running", "pivoting"],
+          to: "standing",
+        },
+        {
+          name: "run",
+          from: ["falling", "standing", "pivoting"],
+          to: "running",
+        },
         { name: "pivot", from: ["falling", "running"], to: "pivoting" },
-        { name: "jump", from: ["idle", "running", "pivoting"], to: "jumping" },
+        {
+          name: "jump",
+          from: ["standing", "running", "pivoting"],
+          to: "jumping",
+        },
         { name: "flip", from: ["jumping", "falling"], to: "flipping" },
         {
           name: "fall",
-          from: ["idle", "running", "pivoting", "jumping", "flipping"],
+          from: ["standing", "running", "pivoting", "jumping", "flipping"],
           to: "falling",
         },
-        { name: "die", from: "*", to: "dead" },
+        {
+          name: "die",
+          from: ["jumping", "flipping", "falling", "standing", "running"],
+          to: "dead",
+        },
       ],
       methods: {
         onEnterState: (lifecycle) => {
@@ -53,7 +69,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     });
 
     this.animPredicates = {
-      idle: () => {
+      standing: () => {
         const onGround = this.body.onFloor();
         const notMovingHorizontally = this.body.velocity.x === 0;
         return onGround && notMovingHorizontally;
@@ -100,7 +116,11 @@ class Hero extends Phaser.GameObjects.Sprite {
           from: ["jumping", "flipping", "falling"],
           to: "standing",
         },
-        { name: "die", from: "*", to: "dead" },
+        {
+          name: "die",
+          from: ["jumping", "flipping", "falling", "standing", "running"],
+          to: "dead",
+        },
       ],
       methods: {
         onEnterState: (lifecycle) => {
@@ -154,8 +174,11 @@ class Hero extends Phaser.GameObjects.Sprite {
   }
 
   kill() {
-    this.moveState.die();
-    this.animState.die();
+    if (this.moveState.can("die")) {
+      this.moveState.die();
+      this.animState.die();
+      this.emit("died");
+    }
   }
 
   isDead() {
