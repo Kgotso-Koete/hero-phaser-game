@@ -2,7 +2,7 @@
 
 ### Description of the project
 
-This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra_(series)>) built while following [Christian Koch](https://www.udemy.com/user/christian-koch-59/) [tutorial](https://www.udemy.com/course/learn-python-by-making-games/). [Contra](<https://en.wikipedia.org/wiki/Contra_(series)>)is a video game series produced by Konami composed primarily of run and gun-style shooting games.
+This is a an HTML5 platformer prototype built while following [Jed Hastwell's](https://www.udemy.com/user/jedhastwell/) [tutorial](hhttps://www.udemy.com/course/html5-game-development-2d-platform-game-fundamentals/).
 
 ---
 
@@ -10,8 +10,7 @@ This is a clone of the video game [Contra](<https://en.wikipedia.org/wiki/Contra
 
 ### Click here for the [in-browser playable demo](https://hero-phaser-game.web.app/)
 
-1. Play it on Windows by downloading the [Windows build folder](./build/exe.win-amd64-3.10/) and clicking on the .exe file
-2. Play it on Linux by downloading the [Linux build folder](./build/exe.linux-x86_64-3.10/) and clicking on the executable file
+Play it in the browser by visiting the [game's site](https://hero-phaser-game.web.app/)
 
 ---
 
@@ -77,4 +76,4 @@ The codebase is MIT licensed unless otherwise specified. Feel free to fork or do
 
 To be modified further by Kgotso Koete
 <br/>
-September 2022
+October 2022
