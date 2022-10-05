@@ -6,7 +6,7 @@ This is a an HTML5 platformer prototype built while following [Jed Hastwell's](h
 
 ---
 
-### Click here for the [video demo](https://youtu.be/fmPfiV2M-3s)
+### Click here for the [video demo](https://youtu.be/LoEi776Z7BA)
 
 ### Click here for the [in-browser playable demo](https://hero-phaser-game.web.app/)
 
@@ -29,39 +29,37 @@ Play it in the browser by visiting the [game's site](https://hero-phaser-game.we
 
 ---
 
-### Install the project on Linux or Windows:
+### How to run the code using NPM:
 
-1. Download this codebase
-2. Install Python 3.10.6 on your machine
-3. Install Pygame 2.1.2 (Linux `python3 pip install pygame`) (Windows `python3 -m pip install pygame`)
-4. Install Pytmx 3.31 (Linux `pip3 install pytmx`) (Windows `pip3 -m install pytmx`)
+The app is deployed on Firebase. Here is the [in-browser playable demo](https://hero-phaser-game.web.app/). Web address is: `https://hero-phaser-game.web.app/`
+
+### 2: Install packages
+
+After cloning this repository, run `npm install` or `nvm exec npm install` if you have the node virtual machine installed
 
 ### 3: Run project
 
-1. Run locally: Navigate to the project folder and run `python3 main.py` (or `python -m main` on Windows if Windows is not working properly) to start the game.
+Run `npm start` assuming the correct node version or `nvm exec npm start` to use the Node Virtual Machine which will run node 12.14.1 automatically based on the .nvmrc file specified in root of the project folder.
 
-### Build project executable
+### 4: Open it
 
-Follow the instructions below to build an executable file for Ubuntu Linux and Windows
+Open up your browser at `http://localhost:8080/`
 
-1. Install executable builder `pip install cx_freeze`
-2. Build the Windows executable by running the following command `python3 setup.py build` (or `python -m setup build` on Windows if Windows is not working properly)
+### 5: Deploy it
 
-The [Linux executable file](./build/exe.linux-x86_64-3.10/contra) will in the following folder `./build/exe.linux-x86_64-3.10`
-
-The [Windows executable file](./build/exe.win-amd64-3.10/contra.exe) will in the following folder `./build/exe.win-amd64-3.10`. The executable must contain all supporting files in this folder to run.
+Run `npm run deploy` or `nvm exec npm run deploy` if you have the node virtual machine installed
 
 ---
 
 ### Acknowledgements
 
-Phaser game development starter code provided by []()
+Thank you to [Jed Hastwell](https://www.udemy.com/user/jedhastwell/) for a good [tutorial](https://www.udemy.com/course/html5-game-development-2d-platform-game-fundamentals/). The tutorial was a good intro to Phaser. It was also detailed in showing learners where to find free game assets, how to modify assets for use using free tools and how to create levels. Jed explained everything very well and clearly. The only problem was that the topics were not broad enough to give learners an idea of what a complete game system in Phaser could look like. It did not have to cover everything but could have had sections on enemies/obstacles, health etc. The hardest part of learning to build any software system is learning how to compose various components/systems together.The tutorial was still worth it because it was only about 4.5 hours long, which makes for a good intro to Phaser. Rated 3.5 out of 5 starts from me.
 
-Special thanks to [Christian Koch](https://www.udemy.com/user/christian-koch-59/) for a great [tutorial](https://www.udemy.com/course/learn-python-by-making-games/). I already did Christian's awesome Flappy Bird tutorial to learn the basics of Pygame, so I only did the Contra section of this tutorial. The tutorial was small enough to be completed without investing too much time, but also broad enough to give learners a taste of what it takes to build a complex 2D game. I also liked the gradual build up from Pygame and unstructured code, to using classes to manage complexity. Very well explained, worth every minute and penny.
+Phaser game development [starter code / boilerplate](https://github.com/jedhastwell/phaser3-es6-webpack-boilerplate) created and provided by Jed Hastwell.
 
-Start menu was created with the help of [BaralTech's](https://www.youtube.com/c/BaralTech)[tutorial](https://youtu.be/GMBqjxcKogA). Here is the [link to their repo](https://github.com/baraltech/Menu-System-PyGame).
+Pixel [Platformer Pack](https://finalbossblues.itch.io/pixel-platformer-pack) including player sprite sheet and level tilesets created and provided by [finalbossblues](https://finalbossblues.itch.io/) for free
 
-Music called `leap.wav` for the start menu was obtained from [Open Game Art](https://opengameart.org/content/leap-8bit). Special thank you to the Artist [Nene](https://opengameart.org/users/nene) for the [Creative Commons License](https://creativecommons.org/publicdomain/zero/1.0/) to use this music.
+Clouds [sprite sheets](https://opengameart.org/content/2d-clouds) created and provided by [kitart360](https://opengameart.org/users/kitart360) under a Creative Commons license.
 
 <br/>
 <br/>
