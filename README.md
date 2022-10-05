@@ -61,6 +61,8 @@ Pixel [Platformer Pack](https://finalbossblues.itch.io/pixel-platformer-pack) in
 
 Clouds [sprite sheets](https://opengameart.org/content/2d-clouds) created and provided by [kitart360](https://opengameart.org/users/kitart360) under a Creative Commons license.
 
+Background [music](https://www.tribeofnoise.com/music/show/83034) created and provided by [Luno](https://www.tribeofnoise.com/luno) under Creative Commons license (CC 4.0 BY-SHARE ALIKE)
+
 <br/>
 <br/>
 

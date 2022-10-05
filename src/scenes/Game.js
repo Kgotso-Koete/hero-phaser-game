@@ -11,6 +11,7 @@ class Game extends Phaser.Scene {
   preload() {
     this.loadLevelSheets();
     this.loadPlayerSpriteSheets();
+    this.loadBackGroundMusic();
   }
 
   create(data) {
@@ -21,6 +22,9 @@ class Game extends Phaser.Scene {
     this.addMap();
 
     this.addHero();
+
+    this.backgroundMusic = this.sound.add("background-music");
+    this.backgroundMusic.play();
 
     this.cameras.main.setBounds(
       0,
@@ -125,6 +129,10 @@ class Game extends Phaser.Scene {
       this.hero.destroy();
       this.addHero();
     }
+  }
+
+  loadBackGroundMusic() {
+    this.load.audio("background-music", "assets/audio/83034_This-Cloud.mp3");
   }
 
   loadLevelSheets() {
