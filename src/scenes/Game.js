@@ -136,50 +136,50 @@ class Game extends Phaser.Scene {
   }
 
   loadLevelSheets() {
-    this.load.tilemapTiledJSON("level-1", "/assets/tilemaps/level-1.json");
+    this.load.tilemapTiledJSON("level-1", "assets/tilemaps/level-1.json");
 
-    this.load.spritesheet("world-1-sheet", "/assets/tilesets/world-1.png", {
+    this.load.spritesheet("world-1-sheet", "assets/tilesets/world-1.png", {
       frameWidth: 32,
       frameHeight: 32,
       margin: 1,
       spacing: 2,
     });
 
-    this.load.image("clouds-sheet", "/assets/tilesets/clouds.png");
+    this.load.image("clouds-sheet", "assets/tilesets/clouds.png");
   }
 
   loadPlayerSpriteSheets() {
-    this.load.spritesheet("hero-idle-sheet", "/assets/player/idle.png", {
+    this.load.spritesheet("hero-idle-sheet", "assets/player/idle.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-run-sheet", "/assets/player/run.png", {
+    this.load.spritesheet("hero-run-sheet", "assets/player/run.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-pivot-sheet", "/assets/player/pivot.png", {
+    this.load.spritesheet("hero-pivot-sheet", "assets/player/pivot.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-jump-sheet", "/assets/player/jump.png", {
+    this.load.spritesheet("hero-jump-sheet", "assets/player/jump.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-flip-sheet", "/assets/player/spinjump.png", {
+    this.load.spritesheet("hero-flip-sheet", "assets/player/spinjump.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-fall-sheet", "/assets/player/fall.png", {
+    this.load.spritesheet("hero-fall-sheet", "assets/player/fall.png", {
       frameWidth: 32,
       frameHeight: 64,
     });
 
-    this.load.spritesheet("hero-die-sheet", "/assets/player/bonk.png", {
+    this.load.spritesheet("hero-die-sheet", "assets/player/bonk.png", {
       frameWidth: 32,
       frameHeight: 64,
     });

@@ -45,9 +45,47 @@ Run `npm start` assuming the correct node version or `nvm exec npm start` to use
 
 Open up your browser at `http://localhost:8080/`
 
-### 5: Deploy it
+### 5: Deploy it to Firebase
 
 Run `npm run deploy` or `nvm exec npm run deploy` if you have the node virtual machine installed
+
+---
+
+### How to build and package for Itch.io (HTML5)
+
+1. **Install dependencies**
+
+   - `npm install` (or `nvm exec npm install`)
+
+2. **Production build**
+
+   - `npm run build`
+   - Outputs to the `dist/` folder: `index.html`, `vendor.js`, `app.js`, and `assets/`.
+
+3. **Test locally (served, not file://)**
+
+   - From the `dist` folder: `python3 -m http.server 8000`
+   - Open `http://localhost:8000` and verify the game loads without console errors.
+
+4. **Create the upload ZIP**
+
+   - Important: Put the files at the ROOT of the ZIP (no extra top-level folder).
+   - Example:
+     - `cd dist`
+     - `zip -r ../hero-phaser-itch.zip *`
+
+5. **Upload to Itch.io**
+   - Create a new project → Kind of project: `HTML`.
+   - Upload `hero-phaser-itch.zip`.
+   - Enable: “This file will be played in the browser”.
+   - Viewport/Scaling: “This is a responsive web page”.
+   - Save & view.
+
+Notes:
+
+- Asset paths are relative (`assets/...`) so the game works under Itch.io’s subpath.
+- If the local test only works via `http://` but not by double-clicking `index.html`, that’s expected due to browser CORS on `file://`.
+- Consider compressing large audio files if page load is slow.
 
 ---
 
